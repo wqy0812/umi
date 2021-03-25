@@ -1,9 +1,10 @@
 import styles from './common.less';
 import { Button, Divider, Input } from "antd";
+import { useModel } from 'umi';
 
-const { TextArea } = Input;
-
-export default function IndexPage() {
+export default () =>  {
+  const { initialState, loading, error, refresh, setInitialState } = useModel('@@initialState');
+  return <>{initialState}</>
   return (
     <div className={styles.title}>
       <Divider orientation="left">Prometheus配置下发</Divider>
@@ -30,4 +31,3 @@ export default function IndexPage() {
     </div>
   );
 }
-
