@@ -1,30 +1,52 @@
 import styles from './common.less';
 import { Button, Divider, Select, Input } from 'antd';
 import React from 'react';
+import request from 'umi-request';
 import { useModel } from 'umi';
 
 const { Option } = Select;
 
-interface clusterNodeJson {
-  Clusters: string;
-  myNumber: number;
+class Clusters {
+  NodeIps: string[];
+  ClusterName: string;
 }
 
-async function fetchClusterNodeJson() {
-  const response = await fetch('/getNodeInCluster');
-  // .then(data => data.json())
-  // .catch(e => console.log("Oops, error", e));
-  return response.json();
+class ClusterJsons {
+  Clusters: Clusters[];
 }
 
-class ClusterSelect extends React.Component {
+class ClusterSelect extends React.Component
+<{
+  str ?: string
+}>
+{
   constructor(props) {
     super(props);
-    fetchClusterNodeJson().then(this.setState({ date: new Date() }));
-    // this.state = {date: new Date()};
+    this.state = {
+      str: "null"
+    };
   }
+
+  componentDidMount() {
+    request
+      .get("/getNodeInCluster")
+      .then((response)=>{
+        this.setState({str:response.Clusters[0].ClusterName})
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  componentWillUnmount() {
+  }
+
   render() {
-    return <h1>Hello,{this.state.date.toLocaleTimeString()}</h1>;
+    return (
+      <div>
+        <h2>It is {this.state.str}.</h2>
+      </div>
+    );
   }
 }
 
