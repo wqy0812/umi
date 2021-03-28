@@ -27,12 +27,12 @@ class ClusterSelect extends React.Component<{ clusterNames?: string[] }> {
     request
       .get('/getNodeInCluster')
       .then((response) => {
-        let cs: string[] = [];
+        let tmp: string[] = [];
         for (const [index, element] of response.Clusters.entries()) {
-          cs.push(element.ClusterName);
+          tmp.push(element.ClusterName);
         }
         this.setState({
-          clusterNames: cs,
+          clusterNames: tmp,
         });
       })
       .catch(function (error) {
