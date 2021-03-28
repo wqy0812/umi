@@ -1,25 +1,31 @@
 import styles from './common.less';
-import { Button, Divider, Select, Input } from 'antd';
-import React from 'react';
+import { Button, Divider, Select, Modal, Input, InputNumber } from 'antd';
+import React, { useState } from 'react';
 import request from 'umi-request';
-import { useModel } from 'umi';
+// import { useModel } from 'umi';
 
 const { Option } = Select;
 
-class Clusters {
-  NodeIps: string[];
-  ClusterName: string;
-}
+//JSON数据结构
+// class Clusters {
+//   NodeIps: string[];
+//   ClusterName: string;
+// }
+//
+// class ClusterJsons {
+//   Clusters: Clusters[];
+// }
 
-class ClusterJsons {
-  Clusters: Clusters[];
-}
-
-class ClusterSelect extends React.Component<{ clusterNames?: string[] }> {
+//集群下拉框
+class ClusterSelect extends React.Component<{
+  clusterList?: string[];
+  selectedCluster?: string;
+}> {
   constructor(props) {
     super(props);
     this.state = {
-      clusterNames: [],
+      clusterList: [],
+      selectedCluster: '',
     };
   }
 
@@ -28,11 +34,11 @@ class ClusterSelect extends React.Component<{ clusterNames?: string[] }> {
       .get('/getNodeInCluster')
       .then((response) => {
         let tmp: string[] = [];
-        for (const [index, element] of response.Clusters.entries()) {
+        for (const [, element] of response.Clusters.entries()) {
           tmp.push(element.ClusterName);
         }
         this.setState({
-          clusterNames: tmp,
+          clusterList: tmp,
         });
       })
       .catch(function (error) {
@@ -40,13 +46,24 @@ class ClusterSelect extends React.Component<{ clusterNames?: string[] }> {
       });
   }
 
+  onChange(value) {
+    // this.setState({
+    //   selectedCluster: value
+    // });
+    this.props.onChange('dateCommenced', dateValue);
+  }
+
   render() {
     return (
       <div>
-        <Select defaultValue="clusterName" style={{ width: 150 }}>
-          {(this.state['clusterNames'] || []).map((item, i) => {
+        <Select
+          defaultValue="集群名称"
+          style={{ width: 150 }}
+          onChange={this.onChange.bind(this)}
+        >
+          {(this.state['clusterList'] || []).map((item) => {
             return (
-              <Option key={i + ''} value={item}>
+              <Option key={item} value={item}>
                 {item}
               </Option>
             );
@@ -61,6 +78,34 @@ export default () => {
   // const { initialState } = useModel('@@initialState');
   // console.log({initialState});
 
+  function onInterValChange(value) {
+    this.setState({
+      interVal: value,
+    });
+  }
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    request
+      .get('/updateFssExporterConfig?clusterName=' + 'wqy' + '&interval=' + '2')
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <div className={styles.title}>
       <Divider orientation="left">Prometheus配置下发</Divider>
@@ -73,16 +118,32 @@ export default () => {
       <div style={{ margin: '24px 0' }} />
 
       <Divider orientation="left">FSS_Exporter配置下发</Divider>
-      <p>集群名称</p>
-      <ClusterSelect />
+      <p>选择集群</p>
+      <ClusterSelect onChange={} />
       <div style={{ margin: '24px 0' }} />
 
       <p>查询间隔(分钟)</p>
-      <Input placeholder="10" />
+      <InputNumber
+        min={2}
+        max={60}
+        defaultValue={10}
+        onChange={onInterValChange}
+      />
       <div style={{ margin: '24px 0' }} />
 
-      <Button type="primary">更新FSS_Exporter.service</Button>
+      <Button type="primary" onClick={showModal}>
+        更新FSS_Exporter.service
+      </Button>
       <div style={{ margin: '24px 0' }} />
+
+      <Modal
+        title="result Modal"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>Some contents...</p>
+      </Modal>
     </div>
   );
 };
