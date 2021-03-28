@@ -15,36 +15,44 @@ class ClusterJsons {
   Clusters: Clusters[];
 }
 
-class ClusterSelect extends React.Component
-<{
-  str ?: string
-}>
-{
+class ClusterSelect extends React.Component<{ clusterNames?: string[] }> {
   constructor(props) {
     super(props);
     this.state = {
-      str: "null"
+      clusterNames: [],
     };
   }
 
   componentDidMount() {
     request
-      .get("/getNodeInCluster")
-      .then((response)=>{
-        this.setState({str:response.Clusters[0].ClusterName})
+      .get('/getNodeInCluster')
+      .then((response) => {
+        console.log('response:', response);
+        let cs: string[] = [];
+        for (const [index, element] of response.Clusters.entries()) {
+          cs.push(element.ClusterName);
+        }
+        this.setState({
+          clusterNames: cs,
+        });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
-  }
-
-  componentWillUnmount() {
   }
 
   render() {
     return (
       <div>
-        <h2>It is {this.state.str}.</h2>
+        <Select defaultValue="clusterName" style={{ width: 150 }}>
+          {(this.state['clusterNames'] || []).map((item, i) => {
+            return (
+              <Option key={i + ''} value={item}>
+                {item}
+              </Option>
+            );
+          })}
+        </Select>
       </div>
     );
   }
@@ -66,9 +74,8 @@ export default () => {
       <div style={{ margin: '24px 0' }} />
 
       <Divider orientation="left">FSS_Exporter配置下发</Divider>
-      <ClusterSelect />
       <p>集群名称</p>
-
+      <ClusterSelect />
       <div style={{ margin: '24px 0' }} />
 
       <p>查询间隔(分钟)</p>

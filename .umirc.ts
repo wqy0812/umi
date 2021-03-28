@@ -10,6 +10,13 @@ export default defineConfig({
     type: 'none',
     exclude: [],
   },
+  locale: {
+    default: 'zh-CN',
+    antd: false,
+    title: false,
+    baseNavigator: true,
+    baseSeparator: '-',
+  },
   routes: [
     {
       path: '/',
