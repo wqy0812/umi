@@ -27,7 +27,6 @@ class ClusterSelect extends React.Component<{ clusterNames?: string[] }> {
     request
       .get('/getNodeInCluster')
       .then((response) => {
-        console.log('response:', response);
         let cs: string[] = [];
         for (const [index, element] of response.Clusters.entries()) {
           cs.push(element.ClusterName);
