@@ -7,13 +7,12 @@ const { Option } = Select;
 
 //集群下拉框
 class ClusterSelect extends React.Component<{
-  clusterList?: string[];
+  clusterList?: string[],
 }> {
   constructor(props) {
     super(props);
     this.state = {
       clusterList: [],
-
     };
   }
 
@@ -34,28 +33,13 @@ class ClusterSelect extends React.Component<{
       });
   }
 
-  handleCurrencyChange = currency => {
-    if (!('value' in this.props)) {
-      this.setState({ currency });
-    }
-    this.triggerChange({ currency });
-  };
-
-  triggerChange = changedValue => {
-    // Should provide an event to pass value to Form.
-    const { onChange } = this.props;
-    if (onChange) {
-      onChange({
-        ...this.state,
-        ...changedValue,
-      });
-    }
-  };
-
+  handleChange(e) {
+    console.log(e.target.value);
+  }
   render() {
     return (
       <div>
-        <Select defaultValue="集群名称" style={{ width: 150 }} onChange={this.handleCurrencyChange}>
+        <Select defaultValue="集群名称" style={{ width: 150 }} onChange={this.handleChange}>
           {(this.state['clusterList'] || []).map((item) => {
             return (
               <Option key={item} value={item}>
@@ -133,7 +117,7 @@ export default class MonitorConfigPage extends React.Component{
 
         <Divider orientation="left">FSS_Exporter配置下发</Divider>
         <p>选择集群</p>
-        <ClusterSelect onChange={this.onClusterChange} />
+        <ClusterSelect {...this.props} />
         <div style={{ margin: '24px 0' }} />
 
         <p>查询间隔(分钟)</p>
@@ -157,3 +141,4 @@ export default class MonitorConfigPage extends React.Component{
     )
   }
 }
+
