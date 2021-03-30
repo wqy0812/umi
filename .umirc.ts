@@ -50,7 +50,7 @@ export default defineConfig({
     {
       path: '/fssdbManager',
       component: '@/pages/fssdbManager',
-      name: 'fss数据库管理',
+      name: 'fss数据管理',
     },
   ],
   fastRefresh: {},

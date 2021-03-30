@@ -3,7 +3,7 @@ import { Button, Divider, Input } from "antd";
 
 const { TextArea } = Input;
 
-export default function expandCluster() {
+export default function AddDevicePage() {
   return (
     <div className={styles.title}>
       <Divider orientation="left">新增节点</Divider>

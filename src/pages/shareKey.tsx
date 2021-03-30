@@ -3,7 +3,7 @@ import { Divider, Button, Space, Input } from 'antd';
 
 const { TextArea } = Input;
 
-export default function shareKey() {
+export default function ShareKeyPage() {
   return (
     <div className={styles.title}>
       <Divider orientation="left">分发密钥</Divider>

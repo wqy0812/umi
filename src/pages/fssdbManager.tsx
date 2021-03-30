@@ -3,7 +3,7 @@ import { Button, Divider, Input } from "antd";
 
 const { TextArea } = Input;
 
-export default function fssdbManager() {
+export default function FssdbManagerPage() {
   return (
     <div className={styles.title}>
       <Divider orientation="left">FSS_Server.db管理</Divider>
