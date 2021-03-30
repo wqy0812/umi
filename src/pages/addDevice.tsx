@@ -7,12 +7,14 @@ export default function expandCluster() {
   return (
     <div className={styles.title}>
       <Divider orientation="left">新增节点</Divider>
+      <pre>建立磁盘VG</pre>
+      <div style={{ margin: '24px 0' }} />
 
-      <p>目标节点IP(一个IP一行)</p>
+      <h3>目标节点IP(一个IP一行)</h3>
       <TextArea placeholder="IPs" autoSize />
       <div style={{ margin: '24px 0' }} />
 
-      <p>磁盘盘符(一个盘符一行)</p>
+      <h3>磁盘盘符(一个盘符一行)</h3>
       <TextArea placeholder="sda" autoSize />
       <div style={{ margin: '24px 0' }} />
 

@@ -47,6 +47,11 @@ export default defineConfig({
       component: '@/pages/monitorConfig',
       name: '监控配置管理',
     },
+    {
+      path: '/fssdbManager',
+      component: '@/pages/fssdbManager',
+      name: 'fss数据库管理',
+    },
   ],
   fastRefresh: {},
 });

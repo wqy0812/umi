@@ -21,5 +21,5 @@ export default {
       },
     ],
   },
-  'GET /updateFssExporterConfig': { success: true },
+  'GET /updateFssExporterConfig': { success: false },
 };

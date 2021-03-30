@@ -3,13 +3,13 @@ import { Button, Divider, Input } from "antd";
 
 const { TextArea } = Input;
 
-export default function IndexPage() {
+export default function fssdbManager() {
   return (
     <div className={styles.title}>
       <Divider orientation="left">新增节点</Divider>
       <pre>安装glusterfs</pre>
-      <pre>安装node_exporter</pre>
-      <pre>安装FSS_Exporter</pre>
+      <pre>安装node_exporter并启动</pre>
+      <pre>安装FSS_Exporter但不启动</pre>
       <pre>新增集群到topology.csv</pre>
       <div style={{ margin: '24px 0' }} />
 

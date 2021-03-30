@@ -13,14 +13,18 @@ export default function shareKey() {
       <div style={{ margin: '24px 0' }} />
 
       <p>id_rsa.pub绝对路径</p>
-      <Input placeholder="/root/,ssh/id_rsa.pub" />
+      <Input placeholder="/root/.ssh/id_rsa.pub" />
       <div style={{ margin: '24px 0' }} />
 
-      <p>用户名</p>
-      <Input placeholder="user" />
+      <p>目标用户目录</p>
+      <Input placeholder="/root" />
       <div style={{ margin: '24px 0' }} />
 
-      <p>密码</p>
+      <p>执行用户</p>
+      <Input placeholder="passuser" />
+      <div style={{ margin: '24px 0' }} />
+
+      <p>执行用户密码</p>
       <Input placeholder="password" />
       <div style={{ margin: '24px 0' }} />
 
