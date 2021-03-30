@@ -42,7 +42,6 @@ export default class MonitorConfigPage extends React.Component  // <{clusterList
     request
       .get('/updateFssExporterConfig?clusterName=' + this.state["selectedCluster"] + '&fssExporterInterval=' + this.state["fssExporterInterval"])
       .then((response) => {
-        console.log(response.success)
         if (response.success){
           this.setState({result: "success"})
         } else {

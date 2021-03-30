@@ -22,4 +22,5 @@ export default {
     ],
   },
   'GET /updateFssExporterConfig': { success: false },
+  'GET /shareKey': { success: true },
 };
