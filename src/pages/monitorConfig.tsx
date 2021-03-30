@@ -63,12 +63,6 @@ export default class MonitorConfigPage extends React.Component  // <{clusterList
     })
   }
 
-  handleCancel = () => {
-    this.setState({
-      isModalVisible: false,
-    })
-  }
-
   onInterValChange = (v) => {
     this.setState({
       fssExporterInterval: v,
@@ -124,7 +118,7 @@ export default class MonitorConfigPage extends React.Component  // <{clusterList
         </Button>
         <div style={{ margin: '24px 0' }} />
 
-        <Modal title="result" visible={this.state["isModalVisible"]} onOk={this.handleOk} onCancel={this.handleCancel}>
+        <Modal title="result" visible={this.state["isModalVisible"]} onOk={this.handleOk} onCancel={this.handleOk}>
           <p>{this.state["result"]}</p>
         </Modal>
       </div>
